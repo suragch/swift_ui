@@ -46,7 +46,16 @@ class Shadow extends StatelessWidget {
             sigmaY: radius,
             Tint(
               color: color,
-              Desaturate(child),
+              Desaturate(
+                child,
+                // The Desaturate widget removes all transparency from the
+                // whatever color the child widget is so that the shadow
+                // opacity is independent of the widget opacity.
+                // However, this also removes the effects of antialiasing, which
+                // makes the border look jagged if there is no blur radius. So
+                // we retain the alpha for that edge case.
+                retainAlpha: radius == 0.0,
+              ),
             ),
           ),
         ),
@@ -57,8 +66,6 @@ class Shadow extends StatelessWidget {
 }
 
 /// A widget that applies a blur filter to its child widget.
-///
-///
 class Blur extends StatelessWidget {
   const Blur(
     this.child, {
@@ -126,20 +133,34 @@ class Desaturate extends StatelessWidget {
   const Desaturate(
     this.child, {
     super.key,
+    required this.retainAlpha,
   });
 
   final Widget child;
 
+  /// Whether to retain the alpha channel of the child widget when desaturating.
+  final bool retainAlpha;
+
   @override
   Widget build(BuildContext context) {
-    const whiteFilter = ColorFilter.matrix(<double>[
-      1, 1, 1, 0, 0, //
-      1, 1, 1, 0, 0, //
-      1, 1, 1, 0, 0, //
-      0, 0, 0, 1, 0, //
-    ]);
+    final ColorFilter filter;
+    if (retainAlpha) {
+      filter = const ColorFilter.matrix(<double>[
+        1, 1, 1, 0, 0, // red -> white
+        1, 1, 1, 0, 0, // green -> white
+        1, 1, 1, 0, 0, // blue -> white
+        0, 0, 0, 1, 0, // retain alpha
+      ]);
+    } else {
+      filter = const ColorFilter.matrix(<double>[
+        1, 1, 1, 0, 0, //
+        1, 1, 1, 0, 0, //
+        1, 1, 1, 0, 0, //
+        0, 0, 0, 255, -254, // remove alpha unless it's 0
+      ]);
+    }
     return ColorFiltered(
-      colorFilter: whiteFilter,
+      colorFilter: filter,
       child: child,
     );
   }
