@@ -17,7 +17,7 @@ class ShadowDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: const VStack(
+      child: VStack(
         [
           // Rectangle with shadow
           Frame(
@@ -66,18 +66,18 @@ class ShadowDemo extends StatelessWidget {
             ),
           ),
 
-          // stroked ellipse
+          // Image with alpha and shadow
           Frame(
             width: 200,
-            height: 100,
+            height: 200,
             Shadow(
               color: color,
               radius: radius,
               x: x,
               y: y,
-              Ellipse(
-                strokeColor: Colors.red,
-                strokeLineWidth: 5,
+              Image.asset(
+                'assets/images/dash_hello/dash_hello.png',
+                fit: BoxFit.contain,
               ),
             ),
           ),
