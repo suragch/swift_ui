@@ -20,7 +20,7 @@ class ShadowDemo extends StatelessWidget {
       child: VStack(
         [
           // Rectangle with shadow
-          Frame(
+          const Frame(
             width: 200,
             height: 100,
             Shadow(
@@ -35,7 +35,7 @@ class ShadowDemo extends StatelessWidget {
           ),
 
           // Ellipse with shadow
-          Frame(
+          const Frame(
             width: 200,
             height: 100,
             Shadow(
@@ -50,7 +50,7 @@ class ShadowDemo extends StatelessWidget {
           ),
 
           // Star with shadow
-          Frame(
+          const Frame(
             width: 200,
             height: 200,
             Shadow(
