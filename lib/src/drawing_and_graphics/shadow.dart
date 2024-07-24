@@ -44,12 +44,12 @@ class Shadow extends StatelessWidget {
       children: [
         Transform.translate(
           offset: Offset(x, y),
-          child: Blur(
+          child: _Blur(
             sigmaX: radius,
             sigmaY: radius,
-            Tint(
+            _Tint(
               color: color,
-              Desaturate(
+              _Desaturate(
                 child,
                 // The Desaturate widget removes all transparency from the
                 // whatever color the child widget is so that the shadow
@@ -69,10 +69,9 @@ class Shadow extends StatelessWidget {
 }
 
 /// A widget that applies a blur filter to its child widget.
-class Blur extends StatelessWidget {
-  const Blur(
+class _Blur extends StatelessWidget {
+  const _Blur(
     this.child, {
-    super.key,
     this.sigmaX = 5.0,
     this.sigmaY = 5.0,
   });
@@ -106,10 +105,9 @@ class Blur extends StatelessWidget {
 /// A widget that applies a color filter to its child widget.
 ///
 /// You must specify a color.
-class Tint extends StatelessWidget {
-  const Tint(
+class _Tint extends StatelessWidget {
+  const _Tint(
     this.child, {
-    super.key,
     required this.color,
   });
 
@@ -132,10 +130,9 @@ class Tint extends StatelessWidget {
 }
 
 /// A widget that removes the RGB saturation of its child widget.
-class Desaturate extends StatelessWidget {
-  const Desaturate(
+class _Desaturate extends StatelessWidget {
+  const _Desaturate(
     this.child, {
-    super.key,
     required this.retainAlpha,
   });
 
