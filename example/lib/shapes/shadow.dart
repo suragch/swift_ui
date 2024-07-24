@@ -8,7 +8,7 @@ class ShadowDemo extends StatelessWidget {
     super.key,
   });
 
-  static const color = Colors.grey;
+  static const color = Color(0xFF8E8E93); // `.grey` in SwiftUI
   static const radius = 10.0;
   static const x = 10.0;
   static const y = 10.0;
